@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout.html}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <!--NOI DUNG O DAY-->
+    <a th:href="@{/admin/product/add}" class="btn btn-primary">Thêm Product</a>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Product List</h3>
+        </div>
+        <div class="wrapper">
+            <div class="preview">
+                <div class="item" th:each="item:${pageResult.getList()}">
+                    <img src="/adminlte/dist/img/avatar.png" alt="Cinque Terre">
+                    <br/>
+                    <form>
+                        Product Name: <span th:text="${item.getName()}"></span>
+                    </form>
+                    <form>
+                        Price: <span th:text="${item.getPrice()}"></span><span> đ</span>
+                    </form>
+                    <form>
+                        Discount Price: <span th:text="${item.getDiscount_price()}"></span><span> đ</span>
+                    </form>
+                    <form>
+                        Description:
+                        <div th:text="${item.getDescription()}"></div>
+                    </form>
+
+                    <div>
+                        <a th:href="@{/admin/product/edit(id=${item.getId()})}"
+                           class="btn btn-block btn-warning btn-sm" style="float: left; width: 40%; margin: 10px">Sửa</a>
+                        <a th:href="@{/admin/product/delete(id=${item.getId()})}"
+                           class="btn btn-block btn-danger btn-sm"
+                           style="float: left;  width: 40%; margin: 10px"
+                           onclick="return confirm('Are you sure want to delete it?')">Xoá</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+                <li
+                        th:each="pageNumber:${#numbers.sequence(1, pageResult.getTotalPage())}"
+                        th:attr="class=${pageResult.getActivePage()==pageNumber ? 'active page-item' : 'page-item'}"
+                        th:if="${pageNumber>0}">
+                    <a class="page-link" th:href="@{/admin/product(page=${pageNumber})}"
+                       th:text="${pageNumber}"
+                    ></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <style>
+        .wrapper{
+            width:100%;
+            border:1px solid white;
+            margin: auto;
+        }
+
+        .wrapper > .preview{
+            border:1px solid white;
+        }
+
+        .wrapper > .preview > .item{
+            width:23%;
+            border:1px solid white;
+            height: 400px;
+            float:left;
+            margin-left: 15px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .wrapper > .preview > .item > img{
+            width:100%;
+        }
+    </style>
+</div>
+</body>
+</html>
