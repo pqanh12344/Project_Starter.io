@@ -1,7 +1,5 @@
 package niit.edu.vn.shop_b2c.models;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
@@ -15,7 +13,27 @@ public class AttributeValue {
     String value;
 
     @Column(name = "attribute_id")
-    Long attribute_id;
+    private Long attribute_id;
+
+    public Long getAttribute_id() {
+        return attribute_id;
+    }
+
+    public void setAttribute_id(Long attribute_id) {
+        this.attribute_id = attribute_id;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "attribute_id", insertable = false, updatable = false)
+    private Attribute attribute;
+
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
+    }
 
     public Long getId() {
         return id;
@@ -25,16 +43,8 @@ public class AttributeValue {
         this.id = id;
     }
 
-    public Long getAttribute_id() {
-        return attribute_id;
-    }
-
     public String getValue() {
         return value;
-    }
-
-    public void setAttribute_id(Long attribute_id) {
-        this.attribute_id = attribute_id;
     }
 
     public void setValue(String value) {

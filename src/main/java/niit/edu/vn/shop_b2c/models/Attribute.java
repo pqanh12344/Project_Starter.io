@@ -1,8 +1,7 @@
 package niit.edu.vn.shop_b2c.models;
 
-import lombok.Data;
-
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "attribute")
@@ -13,6 +12,17 @@ public class Attribute {
 
     @Column(name = "name")
     String name;
+
+    @OneToMany(mappedBy = "attribute")
+    private Set<AttributeValue> attributeValues;
+
+    public void setAttributeValues(Set<AttributeValue> attributeValues) {
+        this.attributeValues = attributeValues;
+    }
+
+    public Set<AttributeValue> getAttributeValues() {
+        return attributeValues;
+    }
 
     public void setId(Long id) {
         this.id = id;

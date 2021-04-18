@@ -1,6 +1,7 @@
 package niit.edu.vn.shop_b2c.services;
 
 import niit.edu.vn.shop_b2c.models.Attribute;
+import niit.edu.vn.shop_b2c.models.AttributeValue;
 import niit.edu.vn.shop_b2c.respository.AttributeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
