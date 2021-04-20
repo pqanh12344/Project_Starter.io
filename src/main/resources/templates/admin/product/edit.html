@@ -50,6 +50,14 @@
                             <label>Discount Price</label>
                             <input type="text" th:field="*{discount_price}" class="form-control">
                         </div>
+
+                        <div class="form-group">
+                            <label>Category Name</label>
+                            <select type="text" th:field="*{category_id}" class="form-control">
+                                <option th:each="category:${listCategory}" th:value="${category.getId}"
+                                        th:text="${category.getName()}"></option>
+                            </select>
+                        </div>
                     </div>
                     <!-- /.card-body -->
 

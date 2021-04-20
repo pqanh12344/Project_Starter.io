@@ -15,11 +15,14 @@
         <div class="card-header">
             <h3 class="card-title">Product List</h3>
         </div>
+        <!--<img src="@{1618812857992bangioc2-2c842.jpg}" alt="Cinque Terre">-->
         <div class="wrapper">
             <div class="preview">
+
                 <div class="item" th:each="item:${pageResult.getList()}">
-                    <img src="/adminlte/dist/img/avatar.png" alt="Cinque Terre">
-                    <br/>
+                    <img th:each="image:${listImage}" th:if="${item.getImage_id()} == ${image.getId()}"
+                         th:src="@{'/uploads/' + ${image.getPath()}}" alt="Cinque Terre" width="100%" height="40%" />
+                    <!--adminlte/dist/img/avatar.png-->
                     <form>
                         Product Name: <span th:text="${item.getName()}"></span>
                     </form>
@@ -34,6 +37,20 @@
                         <div th:text="${item.getDescription()}"></div>
                     </form>
 
+                    <form th:each="attribute:${listAttribute}">
+                        <span th:text="${attribute.getName()}"></span><span>: </span>
+                        <span>
+                            <select name="select" id="selects">
+                                <option value="no_select">No Select</option>
+                                <span th:each="attributeValue:${listValue}">
+                                    <span th:if="${attributeValue.getAttribute_id()} == ${attribute.getId()}">
+                                        <option th:text="${attributeValue.getValue()}"></option>
+                                    </span>
+                                </span>
+                            </select>
+                        </span>
+                    </form>
+
                     <div>
                         <a th:href="@{/admin/product/edit(id=${item.getId()})}"
                            class="btn btn-block btn-warning btn-sm" style="float: left; width: 40%; margin: 10px">Sửa</a>
@@ -41,6 +58,11 @@
                            class="btn btn-block btn-danger btn-sm"
                            style="float: left;  width: 40%; margin: 10px"
                            onclick="return confirm('Are you sure want to delete it?')">Xoá</a>
+                    </div>
+
+                    <div>
+                        <br/>
+                        <a th:href="@{/admin/add-to-cart}" class="btn btn-block btn-success" style="width: 80%; margin: 20px; height: 30px">Add To Cart</a>
                     </div>
                 </div>
             </div>
@@ -73,7 +95,7 @@
         .wrapper > .preview > .item{
             width:23%;
             border:1px solid white;
-            height: 400px;
+            height: 500px;
             float:left;
             margin-left: 15px;
             position: relative;

@@ -18,11 +18,16 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form th:action="@{/admin/product/do-add}" method="post" th:object="${obj}">
+                <form th:action="@{/admin/product/do-add}" method="post" th:object="${obj}" enctype="multipart/form-data">
                     <div class="card-body">
                         <div class="form-group">
                             <label>Product Name</label>
                             <input type="text" th:field="*{name}" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" name="image1">
                         </div>
 
                         <div class="form-group">
@@ -48,6 +53,14 @@
                         <div class="form-group">
                             <label>Discount Price</label>
                             <input type="text" th:field="*{discount_price}" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Category Name</label>
+                            <select type="text" th:field="*{category_id}" class="form-control">
+                                <option th:each="category:${listCategory}" th:value="${category.getId}"
+                                        th:text="${category.getName()}"></option>
+                            </select>
                         </div>
                     </div>
                     <!-- /.card-body -->

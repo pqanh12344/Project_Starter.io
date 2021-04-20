@@ -37,8 +37,30 @@ public class Product {
     String status;
 
     @Column(name = "category_id")
-    Long category_id;
+    private Long category_id;
 
+    @Column(name = "image_id")
+    private Long image_id;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
+    private Category category;
+
+    @OneToOne
+    @JoinColumn(name = "image_id", insertable = false, updatable = false)
+    private Image image;
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -110,5 +132,25 @@ public class Product {
 
     public String getStatus() {
         return status;
+    }
+
+    public Long getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(Long category_id) {
+        this.category_id = category_id;
+    }
+
+    public Long getImage_id() {
+        return image_id;
+    }
+
+    public void setImage_id(Long image_id) {
+        this.image_id = image_id;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }

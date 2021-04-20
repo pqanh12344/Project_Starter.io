@@ -13,5 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AddToCartController {
-
+    @GetMapping("/admin/add-to-cart")
+    public String index(){
+        return "admin/add-to-cart";
+    }
 }
