@@ -10,8 +10,8 @@
 <body>
 <div layout:fragment="main-content">
     <!--NOI DUNG O DAY-->
-    <a th:href="@{/admin/product}" class="btn btn-primary">Continue Buy</a>
-    <a th:href="@{/admin/product}" class="btn btn-primary">Send</a>
+    <a th:href="@{/user/product}" class="btn btn-primary">Continue Buy</a>
+    <a th:href="@{/user/user/add}" class="btn btn-primary">Send</a>
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">My Cart</h3>
@@ -51,7 +51,7 @@
                         th:each="pageNumber:${#numbers.sequence(1, pageResult.getTotalPage())}"
                         th:attr="class=${pageResult.getActivePage()==pageNumber ? 'active page-item' : 'page-item'}"
                         th:if="${pageNumber>0}">
-                    <a class="page-link" th:href="@{/admin/cart(page=${pageNumber})}"
+                    <a class="page-link" th:href="@{/user/cart(page=${pageNumber})}"
                        th:text="${pageNumber}"
                     ></a>
                 </li>

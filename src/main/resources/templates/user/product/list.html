@@ -10,17 +10,15 @@
 <body>
 <div layout:fragment="main-content">
     <!--NOI DUNG O DAY-->
-    <a th:href="@{/admin/product}" class="btn btn-primary">Continue Buy</a>
-    <a th:href="@{/admin/product}" class="btn btn-primary">Send</a>
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">My Cart</h3>
+            <h3 class="card-title">Product List</h3>
         </div>
         <!--<img src="@{1618812857992bangioc2-2c842.jpg}" alt="Cinque Terre">-->
         <div class="wrapper">
             <div class="preview">
 
-                <div class="item" th:each="item:${listProduct}">
+                <button class="item" th:each="item:${pageResult.getList()}">
                     <img th:each="image:${listImage}" th:if="${item.getImage_id()} == ${image.getId()}"
                          th:src="@{'/uploads/' + ${image.getPath()}}" alt="Cinque Terre" width="100%" height="40%" />
                     <!--adminlte/dist/img/avatar.png-->
@@ -36,13 +34,27 @@
                     <form>
                         Description:
                         <div th:text="${item.getDescription()}"></div>
-                    </form><!--
-                    <form>
-                        <a th:href="@{/admin/cart/delete(id=${item.getId()})}"
-                           class="btn btn-block btn-danger btn-sm"
-                           onclick="return confirm('Are you sure want to delete it?')">Xoá</a>
-                    </form>-->
-                </div>
+                    </form>
+
+                    <form th:each="attribute:${listAttribute}">
+                        <span th:text="${attribute.getName()}"></span><span>: </span>
+                        <span>
+                            <select name="select" id="selects">
+                                <option value="no_select">No Select</option>
+                                <span th:each="attributeValue:${listValue}">
+                                    <span th:if="${attributeValue.getAttribute_id()} == ${attribute.getId()}">
+                                        <option th:text="${attributeValue.getValue()}"></option>
+                                    </span>
+                                </span>
+                            </select>
+                        </span>
+                    </form>
+
+                    <div>
+                        <br/>
+                        <a th:href="@{/user/cart/add(id=${item.getId()})}" class="btn btn-block btn-success" style="width: 80%; margin: 20px; height: 30px">Add To Cart</a>
+                    </div>
+                </button>
             </div>
         </div>
         <div class="card-footer clearfix">
@@ -51,7 +63,7 @@
                         th:each="pageNumber:${#numbers.sequence(1, pageResult.getTotalPage())}"
                         th:attr="class=${pageResult.getActivePage()==pageNumber ? 'active page-item' : 'page-item'}"
                         th:if="${pageNumber>0}">
-                    <a class="page-link" th:href="@{/admin/cart(page=${pageNumber})}"
+                    <a class="page-link" th:href="@{/user/product(page=${pageNumber})}"
                        th:text="${pageNumber}"
                     ></a>
                 </li>
